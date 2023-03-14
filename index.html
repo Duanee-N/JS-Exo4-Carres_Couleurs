@@ -1,0 +1,54 @@
+<!DOCTYPEhtml>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <title>JS-Exo4-Carres_Couleurs</title>
+    </head>
+    <body>
+        <div id="container"></div>
+
+        <script>
+            function randomColor(){
+                let color="#"
+                for(let i=0; i<6; i++){ //6 caractères pour une couleur (ex: #FFFFFF)
+                    color+=hex[Math.floor(Math.random()*16)] // génère un nombre aléatoire entre 0 et 16
+                }
+                return color
+            }
+            
+            const box= document.createElement("div") 
+            box.classList.add("box") 
+            
+            const container= document.querySelector("#container") 
+            
+            const hex=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"]
+
+            let max=0
+
+            window.addEventListener("keydown", function (event){ //keydown=touche abaissée (≠keyup)
+                switch(event.key){ //évènement touche
+                    case "ArrowDown":
+                    if(max<225){
+                        let newbox=box.cloneNode() 
+                        newbox.style.backgroundColor=randomColor()
+                        container.appendChild(newbox) 
+                        max++
+                    } else{
+                        container.querySelectorAll(".box").forEach(function(newbox){
+                            newbox.addEventListener("click", function(box){
+                                newbox.style.backgroundColor="black"
+                            })
+                        })
+                    }
+                    break
+                    
+                    case "ArrowUp":
+                    container.lastChild.remove() //container.lastChild sélectionne le dernier enfant de container
+                    max--
+                    break
+                }
+            })
+        </script>
+    </body>
+</html>
